@@ -23,7 +23,7 @@ if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password']) 
                         $hash = password_hash($password, PASSWORD_DEFAULT);
 
                         try{
-                            $req = $PDO->prepare('INSERT INTO users(username,password,email) VALUES (:name ,:email ,:hash)');
+                            $req = $PDO->prepare('INSERT INTO users(username,password,email) VALUES (:name ,:hash, :email)');
                             $req->execute(['name' => $name, 'email' => $email, 'hash' => $hash]);
                         }
                         catch (Exception $e){
