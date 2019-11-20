@@ -119,31 +119,30 @@ if(isset($_POST['name_info_product'])) {
     }
 }
 //creation categorie
-if (isset($_POST['category_create']) && isset($_POST['category_create_name'])){
+if (isset($_POST['category_create_name'])){
         if ($_POST['submit_category_create']){
 
-            $catIdCreate = $_POST['category_create'];
+            $catIdCreateName = $_POST['category_create_name'];
 
-            $reqCategoryCreate = $PDO->prepare("SELECT * FROM categories WHERE id =:catIdCreate ");
-            $reqCategoryCreate->execute(['catIdCreate' => $catIdCreate]);
+            $reqCategoryCreate = $PDO->prepare("SELECT * FROM categories WHERE name =:catIdCreateName ");
+            $reqCategoryCreate->execute(['catIdCreateName' => $catIdCreateName]);
             $donneeCategoryCreate = $reqCategoryCreate->fetch();
             if (!$donneeCategoryCreate) {
-                    $categoryCreateId = $_POST['category_create'];
                     $categoryCreateName = $_POST['category_create_name'];
                     $categoryCreateParentId = $_POST['category_create_parent'];
 
                     try {
-                        $reqCategoryInsert = $PDO->prepare("INSERT INTO categories(id,name,parent_id) VALUES (:id ,:name, :parent_id)");
-                        $reqCategoryInsert->execute(['id' => $categoryCreateId, 'name' => $categoryCreateName, 'parent_id' => $categoryCreateParentId]);
+                        $reqCategoryInsert = $PDO->prepare("INSERT INTO categories(name,parent_id) VALUES (:name, :parent_id)");
+                        $reqCategoryInsert->execute(['name' => $categoryCreateName, 'parent_id' => $categoryCreateParentId]);
                     } catch (Exception $e) {
                         die('Error : ' . $e->getMessage());
                     }
-                    echo 'Product created';
+                    echo 'category created';
 
-                    header("Location: items.php");
-                }
-            } else
+                    //header("Location: items.php");
+                }else
                 echo 'Category already exist';
+            }
 
         }
 
@@ -185,7 +184,6 @@ if (isset($_POST['category_create']) && isset($_POST['category_create_name'])){
 </form>
 <h1>Creation catégorie</h1>
 <form action ="" method="post">
-    <input type="text" name="category_create" placeholder="id"><br>
     <input type="text" name="category_create_name" placeholder="category_name"><br>
     <input type="text" name="category_create_parent" placeholder="category_parent"><br>
     <input type="submit" name="submit_category_create" value="submit">

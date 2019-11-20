@@ -23,7 +23,7 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
 
                         try {
                             $req = $PDO->prepare('INSERT INTO users(username,password,email) VALUES (:name ,:hash, :email)');
-                            $req->execute(['name' => $name, 'email' => $email, 'hash' => $hash]);
+                            $req->execute(['name' => $name, 'hash' => $hash, 'email' => $email]);
                         } catch (Exception $e) {
                             die('Error : ' . $e->getMessage());
                         }

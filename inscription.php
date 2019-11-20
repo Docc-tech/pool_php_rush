@@ -31,6 +31,8 @@ if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password']) 
                             die('Error : ' .$e->getMessage());
                         }
                         echo 'User created';
+
+                        header("Location:login.php");
                         $req -> closeCursor();
                     }
 
@@ -56,7 +58,7 @@ if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password']) 
 </head>
 <body>
 <form action= "" method="post">
-    <input type="text" name="name" placeholder="name" /*minlength="3" maxlength="10"*/><br>
+    <input type="text" name="name" placeholder="name"><br>
     <input type="text" name="email" placeholder="email"><br>
     <input type="password"  name="password" placeholder="password"><br>
     <input type="password"  name="password_confirmation" placeholder="password_confirmation"><br><br>
